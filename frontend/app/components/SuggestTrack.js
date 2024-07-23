@@ -1,3 +1,4 @@
+//This file does not seem to be used
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/core';

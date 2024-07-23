@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 
+//Defines the layout of Components on Main Landing Page
 const CustomGridLayout = ({
   columns,
   gap = 0,

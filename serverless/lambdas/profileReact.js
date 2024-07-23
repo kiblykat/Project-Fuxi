@@ -164,6 +164,7 @@ const createProfileReact = async (profileId, reactTracks) => {
   }
 };
 
+//function to play track
 const getReactTrackByTrackId = async (event) => {
   const { profileId, trackId } = event.queryStringParameters;
   if (!profileId || !trackId) {

@@ -132,6 +132,7 @@ export const getSuggestionsInPlaymedia = async (
   }
 };
 
+//this code adds suggested tracks on Like
 export const addSuggetionTrackWhenLikeInPlaylist = async (
   profileId,
   playlistId,
@@ -152,6 +153,7 @@ export const addSuggetionTrackWhenLikeInPlaylist = async (
   }
 };
 
+//this code adds suggested tracks on Dislike
 export const addSuggetionTrackWhenDislikeInPlaylist = async (
   profileId,
   playlistId

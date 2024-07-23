@@ -1,3 +1,4 @@
+//This class dictates the structure of API response
 class ApiResponse {
   constructor(status, message, data = null) {
     this.code = status;

@@ -1,3 +1,5 @@
+//This Screen defines the Main Landing Page
+
 import {
   Dimensions,
   Platform,
@@ -27,6 +29,7 @@ const LibraryScreen = () => {
   const heightItem = (width - 40 - 20) / 2;
   const [dataPlaylist, setDataPlaylist] = useState([]);
 
+  //getPlaylist on Focus (no error handling?)
   useFocusEffect(
     React.useCallback(() => {
       (async () => {
@@ -36,10 +39,12 @@ const LibraryScreen = () => {
     }, [])
   );
 
+  //Retrieve playlist on Screen load
   useEffect(() => {
     getPlaylist();
   }, [isReRender]);
 
+  //Helper Function: Retrieve playlist
   async function getPlaylist() {
     try {
       const profile0 = await getStoreData('profile0');
@@ -87,6 +92,7 @@ const LibraryScreen = () => {
           gap={20}
           data={[
             <PlaylistLikedSongItem heightItem={heightItem} />,
+            //"Suggestion for you" and other playlists
             ...dataPlaylist.map((dataItem, index) => (
               <PlaylistItem
                 key={index}

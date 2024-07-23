@@ -10,6 +10,7 @@ const PlaylistItem = ({ onPress, heightItem, data }) => {
       style={{ width: heightItem / 2, height: heightItem / 2 }}
     />
   ));
+  // if (namePlaylist !== 'Suggestion for you')? load album image: load static music icon
   return (
     <TouchableOpacity onPress={onPress}>
       {data.namePlaylist !== 'Suggestion for you' ? (
