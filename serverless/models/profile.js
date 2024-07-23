@@ -3,28 +3,28 @@ const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
 const schema = new Schema(
-    {
-        uid: {
-            type: String,
-            required: true,
-        },
-        fullname: {
-            type: String,
-            required: true,
-        },
-        yearBirth: {
-            type: Date,
-        },
-        genres: [
-            {
-                type: String,
-            },
-        ],
-        description: {
-            type: String,
-        },
+  {
+    uid: {
+      type: String,
+      required: true,
     },
-    { timestamps: true }
+    fullname: {
+      type: String,
+      required: true,
+    },
+    yearBirth: {
+      type: Date,
+    },
+    genres: [
+      {
+        type: String,
+      },
+    ],
+    description: {
+      type: String,
+    },
+  },
+  { timestamps: true }
 );
 schema.index({ uid: 1 });
 

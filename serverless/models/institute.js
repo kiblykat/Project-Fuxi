@@ -4,48 +4,48 @@ const bcryptjs = require('bcryptjs');
 const { Schema, model } = mongoose;
 
 const schema = new Schema(
-    {
-        uid: {
-            type: String,
-            unique: true,
-            required: true,
-        },
-        email: {
-            type: String,
-            unique: true,
-            required: true,
-        },
-        name: {
-            type: String,
-            required: true,
-        },
-        password: {
-            type: String,
-            required: true,
-            selected: false,
-        },
-        OTPResetPassword: {
-            type: String,
-        },
-        isVerifyAuth: {
-            type: Boolean,
-            default: false,
-            required: true,
-        },
+  {
+    uid: {
+      type: String,
+      unique: true,
+      required: true,
     },
-    { timestamps: true }
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      selected: false,
+    },
+    OTPResetPassword: {
+      type: String,
+    },
+    isVerifyAuth: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+  },
+  { timestamps: true }
 );
 schema.index({ uid: 1, email: 1 });
 
 schema.pre('save', async function (next) {
-    try {
-        const salt = await bcryptjs.genSalt(10);
-        const hashedPassword = await bcryptjs.hash(this.password, salt);
-        this.password = hashedPassword;
-        next();
-    } catch (err) {
-        next(err);
-    }
+  try {
+    const salt = await bcryptjs.genSalt(10);
+    const hashedPassword = await bcryptjs.hash(this.password, salt);
+    this.password = hashedPassword;
+    next();
+  } catch (err) {
+    next(err);
+  }
 });
 
 const InstituteModel = model('institutes', schema);

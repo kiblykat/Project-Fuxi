@@ -1,13 +1,25 @@
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, Image, Platform, StatusBar } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  Image,
+  Platform,
+  StatusBar,
+} from 'react-native';
 import React from 'react';
 
 const PrivacyPolicy = () => {
-    return (
-        <SafeAreaView style={styles.safeArea}>
-            <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
-                <View style={styles.container}>
-                    <Text style={styles.header}>Privacy Policy</Text>
-                    {/* <Text style={styles.desc}>
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      >
+        <View style={styles.container}>
+          <Text style={styles.header}>Privacy Policy</Text>
+          {/* <Text style={styles.desc}>
                         These terms and conditions create a contract between you and Apple (the “Agreement”). Please read the Agreement carefully.
                     </Text>
                     <Text style={styles.headerSection}>A. INTRODUCTION TO OUR SERVICES</Text>
@@ -23,49 +35,49 @@ const PrivacyPolicy = () => {
                     </Text>
                     <Text style={styles.headerSection}>B. USING OUR SERVICES</Text>
                     <Text style={styles.desc2}>PAYMENTS, TAXES, AND REFUNDS</Text> */}
-                </View>
-            </ScrollView>
-        </SafeAreaView>
-    );
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
 };
 
 export default PrivacyPolicy;
 
 const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: '#fff',
-        paddingTop: 50 + (Platform.OS === 'android' ? StatusBar.currentHeight : 0),
-    },
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        gap: 20,
-        paddingHorizontal: 20,
-        paddingBottom: 30,
-    },
-    header: {
-        fontWeight: '600',
-        fontSize: 30,
-        lineHeight: 36,
-        color: '#222C2D',
-    },
-    desc: {
-        fontWeight: '400',
-        fontSize: 16,
-        lineHeight: 24,
-        color: '#3C4647',
-    },
-    headerSection: {
-        fontWeight: '600',
-        fontSize: 18,
-        lineHeight: 28,
-        color: '#3C4647',
-    },
-    desc2: {
-        fontWeight: '600',
-        fontSize: 16,
-        lineHeight: 24,
-        color: '#3C4647',
-    },
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingTop: 50 + (Platform.OS === 'android' ? StatusBar.currentHeight : 0),
+  },
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    gap: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 30,
+  },
+  header: {
+    fontWeight: '600',
+    fontSize: 30,
+    lineHeight: 36,
+    color: '#222C2D',
+  },
+  desc: {
+    fontWeight: '400',
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#3C4647',
+  },
+  headerSection: {
+    fontWeight: '600',
+    fontSize: 18,
+    lineHeight: 28,
+    color: '#3C4647',
+  },
+  desc2: {
+    fontWeight: '600',
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#3C4647',
+  },
 });

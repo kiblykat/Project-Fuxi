@@ -43,25 +43,25 @@ To better understand and test your serverless application, explore the `serverle
 
 2. **Function Definitions**: Inside the `serverless.yml` file, you'll find a dedicated section for defining your serverless functions. These definitions include essential details such as the function's name, handler file, and any associated event triggers. An example is provided below:
 
-    ```yaml
-    functions:
-        hello:
-            handler: handler.hello
-    ```
+   ```yaml
+   functions:
+     hello:
+       handler: handler.hello
+   ```
 
 3. **Service Configuration**: Below the `functions` section, you'll discover the service-level configuration options. This is where you can define environment variables, set up custom resources, specify deployment settings, and more. An example of service-level configuration is shown below:
 
-    ```yaml
-    provider:
-        name: aws
-        runtime: nodejs18.x
-    ```
+   ```yaml
+   provider:
+     name: aws
+     runtime: nodejs18.x
+   ```
 
-    Be sure to review and, if necessary, update the service configuration to align with your specific testing requirements.
+   Be sure to review and, if necessary, update the service configuration to align with your specific testing requirements.
 
 By following these comprehensive steps, you will be able to seamlessly run and explore your serverless application in your local development environment, facilitating thorough development and testing processes.
 
 ## Additional Resources
 
--   [AWS Lambda Documentation](https://aws.amazon.com/lambda/)
--   [Serverless Framework Documentation](https://serverless.com/framework/docs/)
+- [AWS Lambda Documentation](https://aws.amazon.com/lambda/)
+- [Serverless Framework Documentation](https://serverless.com/framework/docs/)

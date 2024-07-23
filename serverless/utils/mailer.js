@@ -2,90 +2,90 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const SendEmailPasswordReset = async (event) => {
-    const { email, CodeOTP } = JSON.parse(event.body);
-    const username = process.env.MAILER_USERNAME;
-    const password = process.env.MAILER_PASSWORD;
+  const { email, CodeOTP } = JSON.parse(event.body);
+  const username = process.env.MAILER_USERNAME;
+  const password = process.env.MAILER_PASSWORD;
 
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        port: 465,
-        auth: {
-            user: username,
-            pass: password,
-        },
-    });
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    port: 465,
+    auth: {
+      user: username,
+      pass: password,
+    },
+  });
 
-    var mailOptions = {
-        from: username,
-        to: email,
-        subject: '[Fuxi] - Password Reset Request',
-        html: htmlSendCodeResetPassword(CodeOTP),
-    };
+  var mailOptions = {
+    from: username,
+    to: email,
+    subject: '[Fuxi] - Password Reset Request',
+    html: htmlSendCodeResetPassword(CodeOTP),
+  };
 
-    await transporter.sendMail(mailOptions);
-    return {
-        statusCode: 200,
-    };
+  await transporter.sendMail(mailOptions);
+  return {
+    statusCode: 200,
+  };
 };
 
 const SendEmailSignUp = async (event) => {
-    const { email, CodeOTP } = JSON.parse(event.body);
-    const username = process.env.MAILER_USERNAME;
-    const password = process.env.MAILER_PASSWORD;
+  const { email, CodeOTP } = JSON.parse(event.body);
+  const username = process.env.MAILER_USERNAME;
+  const password = process.env.MAILER_PASSWORD;
 
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        port: 465,
-        auth: {
-            user: username,
-            pass: password,
-        },
-    });
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    port: 465,
+    auth: {
+      user: username,
+      pass: password,
+    },
+  });
 
-    var mailOptions = {
-        from: username,
-        to: email,
-        subject: '[Fuxi] - Registration Code Request',
-        html: htmlSendCodeSignUp(CodeOTP),
-    };
+  var mailOptions = {
+    from: username,
+    to: email,
+    subject: '[Fuxi] - Registration Code Request',
+    html: htmlSendCodeSignUp(CodeOTP),
+  };
 
-    await transporter.sendMail(mailOptions);
-    return {
-        statusCode: 200,
-    };
+  await transporter.sendMail(mailOptions);
+  return {
+    statusCode: 200,
+  };
 };
 
 const SendEmailLogin = async (event) => {
-    const { email, CodeOTP } = JSON.parse(event.body);
-    const username = process.env.MAILER_USERNAME;
-    const password = process.env.MAILER_PASSWORD;
+  const { email, CodeOTP } = JSON.parse(event.body);
+  const username = process.env.MAILER_USERNAME;
+  const password = process.env.MAILER_PASSWORD;
 
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        port: 465,
-        auth: {
-            user: username,
-            pass: password,
-        },
-    });
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    port: 465,
+    auth: {
+      user: username,
+      pass: password,
+    },
+  });
 
-    var mailOptions = {
-        from: username,
-        to: email,
-        subject: '[Fuxi] - Login Code Request',
-        html: htmlSendCodeLogin(CodeOTP),
-    };
+  var mailOptions = {
+    from: username,
+    to: email,
+    subject: '[Fuxi] - Login Code Request',
+    html: htmlSendCodeLogin(CodeOTP),
+  };
 
-    await transporter.sendMail(mailOptions);
-    return {
-        statusCode: 200,
-    };
+  await transporter.sendMail(mailOptions);
+  return {
+    statusCode: 200,
+  };
 };
 
 module.exports = { SendEmailPasswordReset, SendEmailSignUp, SendEmailLogin };
 
 const htmlSendCodeResetPassword = (CodeOTP) => {
-    return `   
+  return `   
     <html>
     <head></head>
     <body marginheight="0" topmargin="0" marginwidth="0" style="margin: 0px; background-color: #f2f3f8" leftmargin="0">
@@ -214,7 +214,7 @@ const htmlSendCodeResetPassword = (CodeOTP) => {
 };
 
 const htmlSendCodeSignUp = (CodeOTP) => {
-    return `
+  return `
     <html>
     <head></head>
     <body marginheight="0" topmargin="0" marginwidth="0" style="margin: 0px; background-color: #f2f3f8" leftmargin="0">
@@ -342,7 +342,7 @@ const htmlSendCodeSignUp = (CodeOTP) => {
 };
 
 const htmlSendCodeLogin = (CodeOTP) => {
-    return `
+  return `
     <html>
     <head></head>
     <body marginheight="0" topmargin="0" marginwidth="0" style="margin: 0px; background-color: #f2f3f8" leftmargin="0">
