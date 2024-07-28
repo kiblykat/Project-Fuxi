@@ -1,3 +1,5 @@
+//This determines the screen shown to user(App or Auth) based on whether userToken is valid (authenticated)
+
 import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthContext } from '../context/AuthContext';

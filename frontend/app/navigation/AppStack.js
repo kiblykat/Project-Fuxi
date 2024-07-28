@@ -1,3 +1,5 @@
+//this is the Stack Navigator that is called within AppNav
+
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 

@@ -1,3 +1,5 @@
+//Song Playing page
+
 import { TouchableOpacity } from 'react-native';
 import React, { useState, useLayoutEffect } from 'react';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';

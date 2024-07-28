@@ -174,7 +174,7 @@ const FollowPlayMedia = ({
               (track) => track._id === selectSound._id
             );
             if (index !== -1 && response.data !== null) {
-              dataTracks.splice(index + 1, 0, response.data);
+              dataTracks.splice(index + 1, 0, response.data); //add suggested song right after the current song
               setDataTracks([...dataTracks]);
             }
           } else {
@@ -194,10 +194,10 @@ const FollowPlayMedia = ({
           );
           if (response?.code === 200) {
             const index = dataTracks.findIndex(
-              (track) => track._id === selectSound._id
+              (track) => track._id === selectSound._id // store index of current playing track
             );
             if (index !== -1 && response.data !== null) {
-              dataTracks.splice(index + 1, 0, response.data);
+              dataTracks.splice(index + 1, 0, response.data); // insert the suggested track,randomSongs[0], after the current track
               setDataTracks([...dataTracks]);
             }
           } else {

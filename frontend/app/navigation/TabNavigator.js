@@ -1,3 +1,5 @@
+//This Screen defines the Main Landing Page after Auth
+
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 

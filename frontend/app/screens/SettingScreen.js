@@ -1,3 +1,5 @@
+//Setting Screen Landing Page
+
 import {
   StyleSheet,
   Text,

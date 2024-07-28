@@ -132,7 +132,7 @@ export const getSuggestionsInPlaymedia = async (
   }
 };
 
-//this code adds suggested tracks on Like
+//add track to suggested playlist on "Like" action
 export const addSuggetionTrackWhenLikeInPlaylist = async (
   profileId,
   playlistId,
@@ -146,6 +146,7 @@ export const addSuggetionTrackWhenLikeInPlaylist = async (
       currentTrackId: currentTrackId,
       preference: preference,
     });
+    //returns the entire ApiResponse object (need to use .data again to access actual data)
     return response.data;
   } catch (error) {
     console.error(error);
@@ -153,7 +154,7 @@ export const addSuggetionTrackWhenLikeInPlaylist = async (
   }
 };
 
-//this code adds suggested tracks on Dislike
+//add track to suggested playlist on "Dislike" action
 export const addSuggetionTrackWhenDislikeInPlaylist = async (
   profileId,
   playlistId

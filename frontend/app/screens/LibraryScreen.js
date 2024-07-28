@@ -1,4 +1,4 @@
-//This Screen defines the Main Landing Page
+//Library Screen Landing Page
 
 import {
   Dimensions,
