@@ -11,6 +11,7 @@ import {
 } from '../api/profileReact';
 import {
   addSuggetionTrackWhenLikeInPlaylist,
+  addSuggetionTrackWhenDislikeInPlaylist,
   getPlaylistById,
 } from '../api/playlist';
 
@@ -227,25 +228,25 @@ const FollowPlayMedia = ({
         setIsDialogVisible(false);
         setReactTrack(preference.SDK);
         await updateReactTrack(_id, selectSound._id, preference.SDK.status);
-        if (playlistId) {
-          const response = await addSuggetionTrackWhenLikeInPlaylist(
-            _id,
-            playlistId,
-            selectSound._id || '',
-            preference.SDK.status
-          );
-          if (response?.code === 200) {
-            const index = dataTracks.findIndex(
-              (track) => track._id === selectSound._id
-            );
-            if (index !== -1 && response.data !== null) {
-              dataTracks.splice(index + 1, 0, response.data); //add suggested song right after the current song
-              setDataTracks([...dataTracks]);
-            }
-          } else {
-            alert(response.message);
-          }
-        }
+        // if (playlistId) {
+        //   const response = await addSuggetionTrackWhenLikeInPlaylist(
+        //     _id,
+        //     playlistId,
+        //     selectSound._id || '',
+        //     preference.SDK.status
+        //   );
+        //   if (response?.code === 200) {
+        //     const index = dataTracks.findIndex(
+        //       (track) => track._id === selectSound._id
+        //     );
+        //     if (index !== -1 && response.data !== null) {
+        //       dataTracks.splice(index + 1, 0, response.data); //add suggested song right after the current song
+        //       setDataTracks([...dataTracks]);
+        //     }
+        //   } else {
+        //     alert(response.message);
+        //   }
+        // }
       } else if (reactTrack.status == undefined) {
         setReactTrack(preference.DK);
         setIsDialogVisible(false);
