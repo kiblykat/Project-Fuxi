@@ -224,13 +224,51 @@ const FollowPlayMedia = ({
     if (profile0 !== null) {
       const { _id } = JSON.parse(profile0);
       if (reactTrack.status == 'dislike') {
-        setReactTrack(preference.SDK);
         setIsDialogVisible(false);
+        setReactTrack(preference.SDK);
         await updateReactTrack(_id, selectSound._id, preference.SDK.status);
+        if (playlistId) {
+          const response = await addSuggetionTrackWhenLikeInPlaylist(
+            _id,
+            playlistId,
+            selectSound._id || '',
+            preference.SDK.status
+          );
+          if (response?.code === 200) {
+            const index = dataTracks.findIndex(
+              (track) => track._id === selectSound._id
+            );
+            if (index !== -1 && response.data !== null) {
+              dataTracks.splice(index + 1, 0, response.data); //add suggested song right after the current song
+              setDataTracks([...dataTracks]);
+            }
+          } else {
+            alert(response.message);
+          }
+        }
       } else if (reactTrack.status == undefined) {
         setReactTrack(preference.DK);
         setIsDialogVisible(false);
         await addReactTrack(_id, selectSound._id, preference.DK.status);
+        if (playlistId) {
+          const response = await addSuggetionTrackWhenLikeInPlaylist(
+            _id,
+            playlistId,
+            selectSound._id || '',
+            preference.SLK.status
+          );
+          if (response?.code === 200) {
+            const index = dataTracks.findIndex(
+              (track) => track._id === selectSound._id
+            );
+            if (index !== -1 && response.data !== null) {
+              dataTracks.splice(index + 1, 0, response.data); //add suggested song right after the current song
+              setDataTracks([...dataTracks]);
+            }
+          } else {
+            alert(response.message);
+          }
+        }
       } else if (reactTrack.status == 'strongly like') {
         setReactTrack(preference.DK);
         setIsDialogVisible(false);
