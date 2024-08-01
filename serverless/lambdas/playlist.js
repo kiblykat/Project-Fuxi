@@ -24,8 +24,9 @@ const getPlaylistById = async (event) => {
   }
   try {
     // Find a playlist by its unique identifier (playlistId) in the PlaylistModel, Populate the 'tracks' field of the found playlist with the corresponding documents from the 'tracks' collection
-    const response =
-      await PlaylistModel.findById(playlistId).populate('tracks');
+    const response = await PlaylistModel.findById(playlistId).populate(
+      'tracks'
+    );
     if (response) {
       return {
         statusCode: 200,
@@ -720,26 +721,36 @@ const addSuggetionTrackWhenDislikeInPlaylist = async (event) => {
             _id: { $nin: mergeFilter },
           },
         },
-        { $sample: { size: 10 } },
+        { $sample: { size: 1 } },
       ]);
 
-      // Extract track IDs from the random songs
-      const arrayTrackIds = randomSongs.map((song) => song._id);
+      // Find the index of the current track in the playlist
+      let indexCurrentTrackId = existingPlaylist.tracks.indexOf(
+        new mongoose.Types.ObjectId(currentTrackId)
+      );
 
-      // Merge the existing playlist tracks with the new suggested track IDs
-      const mergedArrayObjectId = existingPlaylist.tracks.concat(
-        arrayTrackIds.filter((id) => !existingPlaylist.tracks.includes(id))
+      // If the current track is not in the playlist, add it to the end
+      if (indexCurrentTrackId === -1) {
+        indexCurrentTrackId = existingPlaylist.tracks.length - 1;
+      }
+
+      // Insert the randomly selected track after the current track in the playlist
+      existingPlaylist.tracks.splice(
+        indexCurrentTrackId + 1,
+        0,
+        randomSongs[0]?._id
       );
 
       // Update the playlist with the modified tracks
       await PlaylistModel.findByIdAndUpdate(playlistId, {
-        tracks: mergedArrayObjectId,
+        tracks: existingPlaylist.tracks,
       });
 
       return {
         statusCode: 200,
         body: JSON.stringify(
-          ApiResponse.success(HttpStatus.OK, 'Removed track success')
+          ApiResponse.success(HttpStatus.OK, 'Removed track success'),
+          randomSongs[0]
         ),
       };
     }
