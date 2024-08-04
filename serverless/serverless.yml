@@ -18,12 +18,12 @@ service: fuxibackend
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
-frameworkVersion: "3"
+frameworkVersion: '3'
 
 provider:
   name: aws
   runtime: nodejs18.x
-  state: dev
+  stage: dev
   region: ap-southeast-1
 
 # you can overwrite defaults here
@@ -38,9 +38,9 @@ plugins:
 custom:
   api:
     cors:
-      AllowMethods: "*"
-      AllowHeaders: "*"
-      AllowOrigin: "*"
+      AllowMethods: '*'
+      AllowHeaders: '*'
+      AllowOrigin: '*'
   serverless-offline:
     httpPort: 3000
   serverless-offline-watcher:
