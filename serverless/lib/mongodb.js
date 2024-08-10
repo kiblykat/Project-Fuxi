@@ -22,6 +22,7 @@ const connectDb = async () => {
   }
 
   try {
+    console.log(`MONGO_URL IS ${process.env.MONGO_URL}`);
     cachedDb = await mongoose.connect(process.env.MONGO_URL, options);
     console.log('Connected to DocumentDB');
     return cachedDb;

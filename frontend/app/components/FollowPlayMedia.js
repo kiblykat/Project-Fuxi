@@ -228,12 +228,13 @@ const FollowPlayMedia = ({
         setIsDialogVisible(false);
         setReactTrack(preference.SDK);
         await updateReactTrack(_id, selectSound._id, preference.SDK.status);
+        const response = await addSuggetionTrackWhenDislikeInPlaylist();
       } else if (reactTrack.status == undefined) {
         setReactTrack(preference.DK);
         setIsDialogVisible(false);
         await addReactTrack(_id, selectSound._id, preference.DK.status);
         if (playlistId) {
-          const response = await addSuggetionTrackWhenLikeInPlaylist(
+          const response = await addSuggetionTrackWhenDislikeInPlaylist(
             _id,
             playlistId,
             selectSound._id || '',

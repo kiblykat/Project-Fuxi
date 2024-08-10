@@ -157,13 +157,18 @@ export const addSuggetionTrackWhenLikeInPlaylist = async (
 //add track to suggested playlist on "Dislike" action
 export const addSuggetionTrackWhenDislikeInPlaylist = async (
   profileId,
-  playlistId
+  playlistId,
+  currentTrackId,
+  preference
 ) => {
   try {
     const response = await axios.post(`${apiUrl}/dev/playlist/add-10track`, {
       profileId: profileId,
       playlistId: playlistId,
+      currentTrackId: currentTrackId,
+      preference: preference,
     });
+    //returns the entire ApiResponse object (need to use .data again to access actual data)
     return response.data;
   } catch (error) {
     console.error(error);

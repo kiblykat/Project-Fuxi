@@ -537,6 +537,9 @@ const getSuggestionsInPlaymedia = async (event) => {
 };
 
 const addSuggetionTrackWhenLikeInPlaylist = async (event) => {
+  console.log(
+    '####### izzat DEBUG: addSuggetionTrackWhenLikeInPlaylist Function Started'
+  );
   // Parse the request body to extract relevant parameters
   const json = JSON.parse(event.body);
   const { profileId, playlistId, currentTrackId, preference } = json;
@@ -650,24 +653,17 @@ const addSuggetionTrackWhenLikeInPlaylist = async (event) => {
 };
 
 const addSuggetionTrackWhenDislikeInPlaylist = async (event) => {
+  console.log(
+    '####### 10.03 izzat DEBUG: addSuggetionTrackWhenDislikeInPlaylist Function Started'
+  );
   // Parse the request body to extract relevant parameters
   const json = JSON.parse(event.body);
-  const { profileId, playlistId } = json;
-
-  // Check if required fields are present
-  if (!profileId || !playlistId) {
-    return {
-      statusCode: 200,
-      body: JSON.stringify(
-        ApiResponse.error(HttpStatus.BAD_REQUEST, 'Missing required fields')
-      ),
-    };
-  }
+  const { profileId, playlistId, currentTrackId, preference } = json;
 
   try {
     // verify field
     const existingPlaylist = await PlaylistModel.findById(playlistId);
-
+    console.log('debug 1');
     if (!existingPlaylist) {
       return {
         statusCode: 200,
@@ -677,23 +673,22 @@ const addSuggetionTrackWhenDislikeInPlaylist = async (event) => {
       };
     }
 
-    // Check if the playlist has a small number of tracks (less than or equal to 5)
-    if (existingPlaylist.tracks.length <= 5) {
-      // Retrieve the user's react information
-      const existingReactProfile = await ProfileReactModal.findOne({
-        profileId: profileId,
-      });
+    // Check if the profile's react information exists
+    const existingReactProfile = await ProfileReactModal.findOne({
+      profileId: profileId,
+    });
 
-      if (!existingReactProfile) {
-        return {
-          statusCode: 200,
-          body: JSON.stringify(
-            ApiResponse.error(HttpStatus.NOT_FOUND, 'Profile react not found')
-          ),
-        };
-      }
+    if (!existingReactProfile) {
+      return {
+        statusCode: 200,
+        body: JSON.stringify(
+          ApiResponse.error(HttpStatus.NOT_FOUND, 'Profile react not found')
+        ),
+      };
+    }
 
-      // Filter out disliked tracks from the user's reactTracks
+    if (preference === 'like' || preference === 'strongly like') {
+      // Filter out disliked tracks from the profile's reactTracks
       const filterTrackDislike = existingReactProfile.reactTracks.filter(
         (item) =>
           item.preference === 'dislike' ||
@@ -702,21 +697,24 @@ const addSuggetionTrackWhenDislikeInPlaylist = async (event) => {
       const filteredTrackIdsDislike = filterTrackDislike.map(
         (item) => item._id
       );
+
+      // Merge filtered disliked tracks and existing playlist tracks
       const mergeFilter = [
         ...filteredTrackIdsDislike,
         ...existingPlaylist.tracks,
       ];
 
-      // Retrieve the user's profile information
-      const profile = await ProfileModel.findById(profileId);
+      // Retrieve information about the current track
+      const currentTrack = await TrackModel.findById(currentTrackId);
 
-      // Find random tracks based on the user's profile genres
+      // Find a random track based on language, genre, and era
       const randomSongs = await TrackModel.aggregate([
         {
           $match: {
             $or: [
-              { Language: { $in: profile.genres } },
-              { Genre: { $in: profile.genres } },
+              { Language: currentTrack.Language },
+              { Genre: currentTrack.Genre },
+              { Era: currentTrack.Era },
             ],
             _id: { $nin: mergeFilter },
           },
@@ -746,15 +744,20 @@ const addSuggetionTrackWhenDislikeInPlaylist = async (event) => {
         tracks: existingPlaylist.tracks,
       });
 
+      // Return a success response with the added track information
       return {
         statusCode: 200,
         body: JSON.stringify(
-          ApiResponse.success(HttpStatus.OK, 'Removed track success'),
-          randomSongs[0]
+          ApiResponse.success(
+            HttpStatus.OK,
+            'Added tracks to playlist successfully',
+            randomSongs[0]
+          )
         ),
       };
     }
   } catch (error) {
+    // Log any errors and return a server error response
     console.error(error);
     return {
       statusCode: 200,
