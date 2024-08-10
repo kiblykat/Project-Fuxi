@@ -653,9 +653,6 @@ const addSuggetionTrackWhenLikeInPlaylist = async (event) => {
 };
 
 const addSuggetionTrackWhenDislikeInPlaylist = async (event) => {
-  console.log(
-    '####### 10.03 izzat DEBUG: addSuggetionTrackWhenDislikeInPlaylist Function Started'
-  );
   // Parse the request body to extract relevant parameters
   const json = JSON.parse(event.body);
   const { profileId, playlistId, currentTrackId, preference } = json;
@@ -663,7 +660,6 @@ const addSuggetionTrackWhenDislikeInPlaylist = async (event) => {
   try {
     // verify field
     const existingPlaylist = await PlaylistModel.findById(playlistId);
-    console.log('debug 1');
     if (!existingPlaylist) {
       return {
         statusCode: 200,
@@ -686,9 +682,8 @@ const addSuggetionTrackWhenDislikeInPlaylist = async (event) => {
         ),
       };
     }
-
-    if (preference === 'like' || preference === 'strongly like') {
-      // Filter out disliked tracks from the profile's reactTracks
+    console.log(`DEBUG: preference is: ${preference}`);
+    if (preference === 'dislike' || preference === 'strongly dislike') {
       const filterTrackDislike = existingReactProfile.reactTracks.filter(
         (item) =>
           item.preference === 'dislike' ||
@@ -705,16 +700,15 @@ const addSuggetionTrackWhenDislikeInPlaylist = async (event) => {
       ];
 
       // Retrieve information about the current track
-      const currentTrack = await TrackModel.findById(currentTrackId);
+      const profile = await ProfileModel.findById(profileId);
 
-      // Find a random track based on language, genre, and era
+      // Find a random track based on language and genre taste of user
       const randomSongs = await TrackModel.aggregate([
         {
           $match: {
             $or: [
-              { Language: currentTrack.Language },
-              { Genre: currentTrack.Genre },
-              { Era: currentTrack.Era },
+              { Language: { $in: profile.genres } },
+              { Genre: { $in: profile.genres } },
             ],
             _id: { $nin: mergeFilter },
           },
